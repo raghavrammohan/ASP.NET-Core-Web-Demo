@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using ProductClient.DTO;
+using ProductModule.Models;
 using System.Text.Json.Nodes;
 
 namespace ProductModule.Services;
@@ -17,14 +18,14 @@ public class ProductServiceDbContext : IProductService
 
     public ProductDTO getProduct(string productId)
     {
-        Models.Product product = _context.Product.FirstOrDefault(p => p.ProductId == productId);
+        Product product = _context.Product.FirstOrDefault(p => p.ProductId == productId);
         ProductDTO productDTO = _mapper.Map<ProductDTO>(product);
         return productDTO;
     }
 
     public ProductDTO createProduct(ProductDTO productDTO)
     {
-        Models.Product product = _mapper.Map<Models.Product>(productDTO);
+        Product product = _mapper.Map<Product>(productDTO);
         Console.WriteLine("Saving ProductModule");
         _context.Product.Add(product);
         _context.SaveChanges();
@@ -32,9 +33,9 @@ public class ProductServiceDbContext : IProductService
         return productDTO;
     }
 
-    ProductDTO IProductService.updateProduct(ProductDTO productDTO)
+    ProductDTO updateProduct(ProductDTO productDTO)
     {
-        Models.Product product = _mapper.Map<Models.Product>(productDTO);
+        Product product = _mapper.Map<Product>(productDTO);
         Console.WriteLine("Updating ProductModule");
         _context.Product.Update(product);
         _context.SaveChanges();
@@ -42,14 +43,14 @@ public class ProductServiceDbContext : IProductService
         return productDTO;
     }
 
-    void IProductService.deleteProduct(string productId)
+    public void deleteProduct(string productId)
     {
         Console.WriteLine("Deleting ProductModule with ProductModule Id :: " + productId);
         _context.Remove(productId);
         _context.SaveChanges();
     }
 
-    List<ProductDTO> IProductService.searchProducts(JsonObject searchParams)
+    public List<ProductDTO> searchProducts(JsonObject searchParams)
     {
         Console.WriteLine(searchParams);
         throw new NotImplementedException();

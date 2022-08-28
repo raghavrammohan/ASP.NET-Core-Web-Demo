@@ -40,5 +40,9 @@ namespace Common.Repository
         {
             _context.Set<T>().RemoveRange(entities);
         }
+        public int Save()
+        {
+            return _context.SaveChanges();
+        }
     }
 }

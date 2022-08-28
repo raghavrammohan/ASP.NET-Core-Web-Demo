@@ -26,15 +26,17 @@ namespace ProductModule
             // Services
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IProductService, ProductServiceDbContext>();
-            //services.AddSingleton<Func<string, IProductService>>(serviceProvider => key =>
-            //{
-            //    switch (key)
-            //    {
-            //        case "Db": return serviceProvider.GetService<ProductServiceDbContext>();
-            //        case "Repository": return serviceProvider.GetService<ProductService>();
-            //        default: throw new KeyNotFoundException();
-            //    }
-            //});
+            /*
+            services.AddSingleton<Func<string, IProductService>>(serviceProvider => key =>
+            {
+                switch (key)
+                {
+                    case "Db": return serviceProvider.GetService<ProductServiceDbContext>();
+                    case "Repository": return serviceProvider.GetService<ProductService>();
+                    default: throw new KeyNotFoundException();
+                }
+            });
+            */
             var mapperConfig = new MapperConfiguration(mc =>
             {
                 mc.AddProfile(new MappingProfile());

@@ -1,8 +1,9 @@
 ﻿using Common.Repository;
+using ProductModule.Models;
 
 namespace ProductModule.Repository
 {
-    public interface IProductRepository : IGenericRepository<Models.Product>
+    public interface IProductRepository : IGenericRepository<Product>
     {
     }
 }

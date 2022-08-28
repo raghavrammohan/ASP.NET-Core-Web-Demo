@@ -31,5 +31,5 @@ public class ApplicationDbContext : DbContext
         return base.SaveChanges();
     }
 
-    public DbSet<Models.Product> Product { get; set; }
+    public DbSet<Product> Product { get; set; }
 }

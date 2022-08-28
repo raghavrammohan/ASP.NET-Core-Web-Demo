@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using ProductClient.DTO;
+using ProductModule.Models;
 using ProductModule.Repository;
 using System.Text.Json.Nodes;
 
@@ -18,7 +20,12 @@ namespace ProductModule.Services
 
         public ProductDTO createProduct(ProductDTO productDTO)
         {
-            throw new NotImplementedException();
+            Product product = _mapper.Map<Product>(productDTO);
+            Console.WriteLine("Saving ProductModule");
+            _productRepository.Add(product);
+            _productRepository.Save();
+            productDTO = _mapper.Map<ProductDTO>(product);
+            return productDTO;
         }
 
         public void deleteProduct(string productId)
@@ -28,7 +35,7 @@ namespace ProductModule.Services
 
         public ProductDTO getProduct(string productId)
         {
-            Models.Product product = _productRepository.GetById(productId);
+            Product product = _productRepository.GetById(productId);
             ProductDTO productDTO = _mapper.Map<ProductDTO>(product);
             return productDTO;
         }
@@ -40,7 +47,12 @@ namespace ProductModule.Services
 
         public ProductDTO updateProduct(ProductDTO productDTO)
         {
-            throw new NotImplementedException();
+            Product product = _mapper.Map<Product>(productDTO);
+            Console.WriteLine("Updating ProductModule");
+            _productRepository.Add(product);
+            _productRepository.Save();
+            productDTO = _mapper.Map<ProductDTO>(product);
+            return productDTO;
         }
     }
 }
