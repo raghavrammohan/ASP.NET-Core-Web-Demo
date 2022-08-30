@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Common.PDFProcessing;
 using Common.Repository;
 using Microsoft.EntityFrameworkCore;
 using ProductModule.Mappings;
@@ -53,6 +54,7 @@ namespace ProductModule
             // Repositories
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<IPDFProcessor, PDFProcessor>();
             //Registration.ConfigureServices(services);
         }
 

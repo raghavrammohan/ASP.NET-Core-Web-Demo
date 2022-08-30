@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Common.PDFProcessing;
+using Microsoft.AspNetCore.Mvc;
 using ProductClient.DTO;
 using ProductModule.Services;
 
@@ -9,11 +10,13 @@ namespace ProductModule.Controllers;
 public class ProductController : ControllerBase
 {
     private readonly IProductService _productService;
+    private readonly IPDFProcessor _pdfProcessor;
 
-    public ProductController(IEnumerable<IProductService> productServices)
+    public ProductController(IEnumerable<IProductService> productServices, IPDFProcessor pdfProcessor)
     {
         //_productService = productServices.SingleOrDefault(s => s.GetType() == typeof(ProductServiceDbContext));
         _productService = productServices.SingleOrDefault(s => s.GetType() == typeof(ProductService));
+        _pdfProcessor = pdfProcessor;
     }
 
     [HttpGet("getProduct/{productId}")]
@@ -42,5 +45,19 @@ public class ProductController : ControllerBase
     {
         _productService.deleteProduct(productId);
         return NoContent();
+    }
+
+    [HttpGet("processPDF")]
+    public IActionResult ProcessPDF()
+    {
+        _pdfProcessor.processPDF();
+        return Ok();
+    }
+
+    [HttpGet("generatePDF")]
+    public IActionResult GeneratePDF()
+    {
+        _pdfProcessor.generatePDF();
+        return Ok();
     }
 }

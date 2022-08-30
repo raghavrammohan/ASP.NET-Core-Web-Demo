@@ -55,4 +55,9 @@ public class ProductServiceDbContext : IProductService
         Console.WriteLine(searchParams);
         throw new NotImplementedException();
     }
+
+    ProductDTO IProductService.updateProduct(ProductDTO productDTO)
+    {
+        throw new NotImplementedException();
+    }
 }
