@@ -26,6 +26,7 @@ namespace ProductModule
             // Services
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IProductService, ProductServiceDbContext>();
+            services.AddScoped<IProductService, ProductServiceUOW>();
             /*
             services.AddSingleton<Func<string, IProductService>>(serviceProvider => key =>
             {
@@ -47,12 +48,14 @@ namespace ProductModule
             // DbContext
             services.AddDbContext<ApplicationDbContext>(o =>
             {
-                o.UseNpgsql(Configuration.GetConnectionString("demodb"));
+                o.UseNpgsql(Configuration.GetConnectionString("demodb"))
+                    .LogTo(Console.WriteLine);
             });
 
             // Repositories
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
             //Registration.ConfigureServices(services);
         }
 

@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System.Linq.Expressions;
 
 
@@ -40,6 +41,15 @@ namespace Common.Repository
         {
             _context.Set<T>().RemoveRange(entities);
         }
+        public void Update(T entity)
+        {
+            _context.Set<T>().Update(entity);
+        }
+        public void UpdateRange(IEnumerable<T> entities)
+        {
+            _context.Set<T>().UpdateRange(entities);
+        }
+
         public int Save()
         {
             return _context.SaveChanges();

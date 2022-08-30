@@ -13,7 +13,8 @@ public class ProductController : ControllerBase
     public ProductController(IEnumerable<IProductService> productServices)
     {
         //_productService = productServices.SingleOrDefault(s => s.GetType() == typeof(ProductServiceDbContext));
-        _productService = productServices.SingleOrDefault(s => s.GetType() == typeof(ProductService));
+        //_productService = productServices.SingleOrDefault(s => s.GetType() == typeof(ProductService));
+        _productService = productServices.SingleOrDefault(s => s.GetType() == typeof(ProductServiceUOW));
     }
 
     [HttpGet("getProduct/{productId}")]
