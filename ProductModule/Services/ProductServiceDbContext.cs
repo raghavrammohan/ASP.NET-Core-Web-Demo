@@ -26,17 +26,17 @@ public class ProductServiceDbContext : IProductService
     public ProductDTO createProduct(ProductDTO productDTO)
     {
         Product product = _mapper.Map<Product>(productDTO);
-        Console.WriteLine("Saving ProductModule");
+        Console.WriteLine("Saving Product - DbContext");
         _context.Product.Add(product);
         _context.SaveChanges();
         productDTO = _mapper.Map<ProductDTO>(product);
         return productDTO;
     }
 
-    ProductDTO updateProduct(ProductDTO productDTO)
+    public ProductDTO updateProduct(ProductDTO productDTO)
     {
         Product product = _mapper.Map<Product>(productDTO);
-        Console.WriteLine("Updating ProductModule");
+        Console.WriteLine("Updating Product - DbContext");
         _context.Product.Update(product);
         _context.SaveChanges();
         productDTO = _mapper.Map<ProductDTO>(product);
@@ -45,7 +45,7 @@ public class ProductServiceDbContext : IProductService
 
     public void deleteProduct(string productId)
     {
-        Console.WriteLine("Deleting ProductModule with ProductModule Id :: " + productId);
+        Console.WriteLine("Deleting Product (DbContext) with Product Id :: " + productId);
         _context.Remove(productId);
         _context.SaveChanges();
     }
