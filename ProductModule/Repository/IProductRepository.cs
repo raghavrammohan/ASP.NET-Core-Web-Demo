@@ -5,5 +5,6 @@ namespace ProductModule.Repository
 {
     public interface IProductRepository : IGenericRepository<Product>
     {
+        void Update(Product product);
     }
 }

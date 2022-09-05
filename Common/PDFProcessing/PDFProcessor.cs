@@ -1,6 +1,13 @@
 ﻿using PdfSharpCore.Drawing;
 using PdfSharpCore.Pdf;
 using PdfSharpCore.Pdf.IO;
+using System.Drawing.Imaging;
+using System.Drawing;
+using System.Runtime.InteropServices;
+using Docnet.Core;
+using Docnet.Core.Models;
+using Docnet.Core.Converters;
+using System.IO;
 
 namespace Common.PDFProcessing
 {
@@ -83,7 +90,59 @@ namespace Common.PDFProcessing
                 // Add the page and save it
                 outputDocument.AddPage(inputDocument.Pages[idx]);
                 outputDocument.Save(fileName);
-            }
+
+                PdfPage page = inputDocument.Pages[idx];
+                //paths
+                string pathPdf = "C:\\MicroservicesRaghav\\Temp\\" + String.Format("{0} - Page {1}_tempfile.pdf", name, idx + 1);
+                string finalPathWithFileName = "C:\\MicroservicesRaghav\\Temp\\" + String.Format("{0} - Page {1}_tempfile.png", name, idx + 1);
+                try {
+                    //using docnet
+                    using (var docReader = DocLib.Instance.GetDocReader(pathPdf, new PageDimensions(4)))
+                    {
+                        //open pdf file
+                        using (var pageReader = docReader.GetPageReader(0))
+                        {
+
+                            var rawBytes = pageReader.GetImage(new NaiveTransparencyRemover(255,255,255));
+                            var width = pageReader.GetPageWidth();
+                            var height = pageReader.GetPageHeight();
+                            var characters = pageReader.GetCharacters();
+                            ////using bitmap to create a png image
+                            using (var bmp = new Bitmap(width, height, PixelFormat.Format32bppRgb))
+                            {
+                                AddBytes(bmp, rawBytes);
+                                using (var stream = new MemoryStream())
+                                {
+
+                                    bmp.Save(stream, ImageFormat.Png);
+                                    //Bitmap resized = new Bitmap(bmp, new Size(bmp.Width / 4, bmp.Height / 4));
+                                    //resized.Save(stream, ImageFormat.Png);
+                                    File.WriteAllBytes(finalPathWithFileName, stream.ToArray());
+                                };
+                            };
+                        };
+                    };
+
+
+
+                }
+                catch (Exception e) { 
+                }
+                }
+
         }
+
+        //extra methods
+        private static void AddBytes(Bitmap bmp, byte[] rawBytes)
+        {
+            var rect = new Rectangle(0, 0, bmp.Width, bmp.Height);
+
+            var bmpData = bmp.LockBits(rect, ImageLockMode.WriteOnly, bmp.PixelFormat);
+            var pNative = bmpData.Scan0;
+
+            Marshal.Copy(rawBytes, 0, pNative, rawBytes.Length);
+            bmp.UnlockBits(bmpData);
+        }
+
     }
 }
