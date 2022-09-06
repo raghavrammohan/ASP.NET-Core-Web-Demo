@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using ProductModule.Mappings;
 using ProductModule.Repository;
 using ProductModule.Services;
+using TradingPartyClient;
 
 namespace ProductModule
 {
@@ -57,6 +58,8 @@ namespace ProductModule
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddMemoryCache();
+            services.AddHttpClient<TradingPartyHttpClient>();         
             services.AddScoped<IPDFProcessor, PDFProcessor>();
             //Registration.ConfigureServices(services);
         }

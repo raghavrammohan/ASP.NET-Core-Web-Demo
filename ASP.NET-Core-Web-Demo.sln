@@ -3,11 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32819.101
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductModule", "ProductModule\ProductModule.csproj", "{398A8A5D-EE25-4127-B31E-C42488D931D2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductModule", "ProductModule\ProductModule.csproj", "{398A8A5D-EE25-4127-B31E-C42488D931D2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductClient", "ProductClient\ProductClient.csproj", "{98E9BCC1-1ADD-4E69-8554-AE5AD34C56D8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductClient", "ProductClient\ProductClient.csproj", "{98E9BCC1-1ADD-4E69-8554-AE5AD34C56D8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{A7F97AE4-1C3C-4326-9ADD-1B87DAF08C10}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common", "Common\Common.csproj", "{A7F97AE4-1C3C-4326-9ADD-1B87DAF08C10}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TradingParty", "TradingParty\TradingParty.csproj", "{E0AB18E1-773E-4DBD-931D-2338FAF72BDF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TradingPartyClient", "TradingPartyClient\TradingPartyClient.csproj", "{2D39C849-8B00-42C0-8652-11BC4790C2E5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +31,14 @@ Global
 		{A7F97AE4-1C3C-4326-9ADD-1B87DAF08C10}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A7F97AE4-1C3C-4326-9ADD-1B87DAF08C10}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A7F97AE4-1C3C-4326-9ADD-1B87DAF08C10}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E0AB18E1-773E-4DBD-931D-2338FAF72BDF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E0AB18E1-773E-4DBD-931D-2338FAF72BDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E0AB18E1-773E-4DBD-931D-2338FAF72BDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E0AB18E1-773E-4DBD-931D-2338FAF72BDF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D39C849-8B00-42C0-8652-11BC4790C2E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D39C849-8B00-42C0-8652-11BC4790C2E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D39C849-8B00-42C0-8652-11BC4790C2E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D39C849-8B00-42C0-8652-11BC4790C2E5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

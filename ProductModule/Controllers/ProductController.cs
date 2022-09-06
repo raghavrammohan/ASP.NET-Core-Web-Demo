@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using ProductClient.DTO;
 using ProductModule.Services;
+using TradingPartyClient;
 
 namespace ProductModule.Controllers;
 
@@ -9,20 +10,26 @@ namespace ProductModule.Controllers;
 [Route("product")]
 public class ProductController : ControllerBase
 {
-    private readonly IProductService _productService;
+    private readonly IProductService _productService;   
+    private readonly TradingPartyHttpClient tradingPartyHttpClient;
     private readonly IPDFProcessor _pdfProcessor;
 
-    public ProductController(IEnumerable<IProductService> productServices, IPDFProcessor pdfProcessor)
+    
+    public ProductController(IEnumerable<IProductService> productServices, TradingPartyHttpClient tradingPartyHttpClient,
+    IPDFProcessor pdfProcessor)
     {
         //_productService = productServices.SingleOrDefault(s => s.GetType() == typeof(ProductServiceDbContext));
         //_productService = productServices.SingleOrDefault(s => s.GetType() == typeof(ProductService));
         _productService = productServices.SingleOrDefault(s => s.GetType() == typeof(ProductServiceUOW));
+        this.tradingPartyHttpClient = tradingPartyHttpClient;
+       
         _pdfProcessor = pdfProcessor;
     }
 
     [HttpGet("getProduct/{productId}")]
     public IActionResult GetProduct(string productId)
     {
+        var parties = tradingPartyHttpClient.GetParties().Result;
         var response = _productService.getProduct(productId);
         return Ok(response);
     }
