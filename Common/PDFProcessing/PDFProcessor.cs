@@ -95,9 +95,10 @@ namespace Common.PDFProcessing
                 //paths
                 string pathPdf = "C:\\MicroservicesRaghav\\Temp\\" + String.Format("{0} - Page {1}_tempfile.pdf", name, idx + 1);
                 string finalPathWithFileName = "C:\\MicroservicesRaghav\\Temp\\" + String.Format("{0} - Page {1}_tempfile.png", name, idx + 1);
+                string refinalPathWithFileName = "C:\\MicroservicesRaghav\\Temp\\" + String.Format("{0} - Page {1}_tempfile.png", name, idx + 1+"_resizw");
                 try {
                     //using docnet
-                    using (var docReader = DocLib.Instance.GetDocReader(pathPdf, new PageDimensions(4)))
+                    using (var docReader = DocLib.Instance.GetDocReader(pathPdf, new PageDimensions(2.67)))
                     {
                         //open pdf file
                         using (var pageReader = docReader.GetPageReader(0))
@@ -113,18 +114,12 @@ namespace Common.PDFProcessing
                                 AddBytes(bmp, rawBytes);
                                 using (var stream = new MemoryStream())
                                 {
-
                                     bmp.Save(stream, ImageFormat.Png);
-                                    //Bitmap resized = new Bitmap(bmp, new Size(bmp.Width / 4, bmp.Height / 4));
-                                    //resized.Save(stream, ImageFormat.Png);
                                     File.WriteAllBytes(finalPathWithFileName, stream.ToArray());
-                                };
+                                }
                             };
                         };
                     };
-
-
-
                 }
                 catch (Exception e) { 
                 }
