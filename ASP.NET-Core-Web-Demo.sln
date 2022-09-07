@@ -7,15 +7,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductModule", "ProductMod
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductClient", "ProductClient\ProductClient.csproj", "{98E9BCC1-1ADD-4E69-8554-AE5AD34C56D8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{A7F97AE4-1C3C-4326-9ADD-1B87DAF08C10}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common", "Common\Common.csproj", "{A7F97AE4-1C3C-4326-9ADD-1B87DAF08C10}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CWC.DocMgmt", "CWC.DocMgmt\CWC.DocMgmt.csproj", "{2E70149A-7FD6-4736-A9EA-615C31C7D924}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CWC.DocMgmt", "CWC.DocMgmt\CWC.DocMgmt.csproj", "{2E70149A-7FD6-4736-A9EA-615C31C7D924}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CWC.DocGeneration", "CWC.DocGeneration\CWC.DocGeneration.csproj", "{85061242-DE6E-497E-AFBD-085BBADE2B1C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CWC.DocGeneration", "CWC.DocGeneration\CWC.DocGeneration.csproj", "{85061242-DE6E-497E-AFBD-085BBADE2B1C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CWC.DocMgmtClient", "CWC.DocMgmtClient\CWC.DocMgmtClient.csproj", "{6A475199-5A9A-4D19-9BDD-22DCED0C5725}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CWC.DocMgmtClient", "CWC.DocMgmtClient\CWC.DocMgmtClient.csproj", "{6A475199-5A9A-4D19-9BDD-22DCED0C5725}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CWC.DocGenrationClient", "CWC.DocGenrationClient\CWC.DocGenrationClient.csproj", "{725E52FC-CC65-4D0A-8AF7-4854C717E33C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CWC.DocGenrationClient", "CWC.DocGenrationClient\CWC.DocGenrationClient.csproj", "{725E52FC-CC65-4D0A-8AF7-4854C717E33C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,6 +35,22 @@ Global
 		{A7F97AE4-1C3C-4326-9ADD-1B87DAF08C10}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A7F97AE4-1C3C-4326-9ADD-1B87DAF08C10}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A7F97AE4-1C3C-4326-9ADD-1B87DAF08C10}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E70149A-7FD6-4736-A9EA-615C31C7D924}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E70149A-7FD6-4736-A9EA-615C31C7D924}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E70149A-7FD6-4736-A9EA-615C31C7D924}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E70149A-7FD6-4736-A9EA-615C31C7D924}.Release|Any CPU.Build.0 = Release|Any CPU
+		{85061242-DE6E-497E-AFBD-085BBADE2B1C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{85061242-DE6E-497E-AFBD-085BBADE2B1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{85061242-DE6E-497E-AFBD-085BBADE2B1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{85061242-DE6E-497E-AFBD-085BBADE2B1C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A475199-5A9A-4D19-9BDD-22DCED0C5725}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A475199-5A9A-4D19-9BDD-22DCED0C5725}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A475199-5A9A-4D19-9BDD-22DCED0C5725}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A475199-5A9A-4D19-9BDD-22DCED0C5725}.Release|Any CPU.Build.0 = Release|Any CPU
+		{725E52FC-CC65-4D0A-8AF7-4854C717E33C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{725E52FC-CC65-4D0A-8AF7-4854C717E33C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{725E52FC-CC65-4D0A-8AF7-4854C717E33C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{725E52FC-CC65-4D0A-8AF7-4854C717E33C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
