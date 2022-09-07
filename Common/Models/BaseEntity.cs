@@ -1,6 +1,6 @@
-﻿namespace ProductModule.Models;
+﻿namespace Common.Models;
 
-public abstract class SystemEntity
+public abstract class BaseEntity
 {
     public DateTime createdAt { get; set; }
     public string createdBy { get; set; }

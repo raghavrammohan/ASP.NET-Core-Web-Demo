@@ -7,6 +7,7 @@ namespace Common.Repository
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
+        // TODO: Make async 
         private readonly DbContext _context;
         public GenericRepository(DbContext context)
         {
@@ -44,15 +45,12 @@ namespace Common.Repository
         public void Update(T entity)
         {
             _context.Set<T>().Update(entity);
+            //TODO : Test the below statement
+            //_dbContext.Entry<T>(entity).CurrentValues.SetValues(entity);
         }
         public void UpdateRange(IEnumerable<T> entities)
         {
             _context.Set<T>().UpdateRange(entities);
-        }
-
-        public int Save()
-        {
-            return _context.SaveChanges();
         }
     }
 }

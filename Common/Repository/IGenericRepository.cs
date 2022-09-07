@@ -14,6 +14,5 @@ namespace Common.Repository
         void UpdateRange(IEnumerable<T> entities);
         void Remove(T entity);
         void RemoveRange(IEnumerable<T> entities);
-        int Save();
     }
 }

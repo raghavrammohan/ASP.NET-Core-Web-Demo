@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Common.UOW;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using ProductModule.Models;
 
@@ -14,6 +15,7 @@ namespace ProductModule.EntityProcessor
 
         public void processEntity(Product entity)
         {
+            /*
             ChangeTracker changeTracker = _unitOfWork.ChangeTracker();
             var entries = changeTracker.Entries<Product>().Where(e => e.State == EntityState.Modified);
             foreach (var entry in entries)
@@ -21,6 +23,7 @@ namespace ProductModule.EntityProcessor
                 var modifiedProps = entry.Properties.Where(prop => prop.IsModified);
                 Console.WriteLine("---------------{0}", modifiedProps.Select(p => p.Metadata));
             }
+            */
         }
     }
 }
