@@ -1,26 +1,32 @@
 ﻿using AutoMapper;
+using Common.UOW;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 using ProductClient.DTO;
-using ProductModule.EntityProcessor;
 using ProductModule.Models;
+using ProductModule.Repository;
 using System.Text.Json.Nodes;
 
 namespace ProductModule.Services
 {
-    public class ProductServiceUOW : IProductService
+    public class ProductServiceWithRepository : IProductService
     {
-        private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-        public ProductServiceUOW(IUnitOfWork unitOfWork, IMapper mapper)
+        private readonly IProductRepository _productRepository;
+        private readonly IUnitOfWork _unitOfWork;
+
+        public ProductServiceWithRepository(IProductRepository productRepository, IMapper mapper, IUnitOfWork unitOfWork)
         {
-            _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _productRepository = productRepository;
+            _unitOfWork = unitOfWork;
         }
 
         public ProductDTO createProduct(ProductDTO productDTO)
         {
-            Console.WriteLine("Saving Product using ProductService-UOW"); 
             Product product = _mapper.Map<Product>(productDTO);
-            _unitOfWork.Products.Add(product);
+            Console.WriteLine("Saving Products - ProductRepository");
+            _productRepository.Add(product);
             _unitOfWork.Complete();
             productDTO = _mapper.Map<ProductDTO>(product);
             return productDTO;
@@ -33,7 +39,7 @@ namespace ProductModule.Services
 
         public ProductDTO getProduct(string productId)
         {
-            Product product = _unitOfWork.Products.GetById(productId);
+            Product product = _productRepository.GetById(productId);
             ProductDTO productDTO = _mapper.Map<ProductDTO>(product);
             return productDTO;
         }
@@ -45,11 +51,9 @@ namespace ProductModule.Services
 
         public ProductDTO updateProduct(ProductDTO productDTO)
         {
-            Console.WriteLine("Updating Product using ProductService-UOW");
-            //Product existingProduct = _unitOfWork.Products.GetById(productDTO.ProductId);
             Product product = _mapper.Map<Product>(productDTO);
-            _unitOfWork.Products.Update(product);
-            new ProductEntityProcessor(_unitOfWork).processEntity(product);
+            Console.WriteLine("Updating Products - ProductRepository");
+            _productRepository.Update(product);
             _unitOfWork.Complete();
             productDTO = _mapper.Map<ProductDTO>(product);
             return productDTO;

@@ -18,7 +18,7 @@ public class ProductServiceDbContext : IProductService
 
     public ProductDTO getProduct(string productId)
     {
-        Product product = _context.Product.FirstOrDefault(p => p.ProductId == productId);
+        Product product = _context.Products.FirstOrDefault(p => p.ProductId == productId);
         ProductDTO productDTO = _mapper.Map<ProductDTO>(product);
         return productDTO;
     }
@@ -26,8 +26,8 @@ public class ProductServiceDbContext : IProductService
     public ProductDTO createProduct(ProductDTO productDTO)
     {
         Product product = _mapper.Map<Product>(productDTO);
-        Console.WriteLine("Saving Product - DbContext");
-        _context.Product.Add(product);
+        Console.WriteLine("Saving Products - DbContext");
+        _context.Products.Add(product);
         _context.SaveChanges();
         productDTO = _mapper.Map<ProductDTO>(product);
         return productDTO;
@@ -36,8 +36,8 @@ public class ProductServiceDbContext : IProductService
     public ProductDTO updateProduct(ProductDTO productDTO)
     {
         Product product = _mapper.Map<Product>(productDTO);
-        Console.WriteLine("Updating Product - DbContext");
-        _context.Product.Update(product);
+        Console.WriteLine("Updating Products - DbContext");
+        _context.Products.Update(product);
         _context.SaveChanges();
         productDTO = _mapper.Map<ProductDTO>(product);
         return productDTO;
@@ -45,7 +45,7 @@ public class ProductServiceDbContext : IProductService
 
     public void deleteProduct(string productId)
     {
-        Console.WriteLine("Deleting Product (DbContext) with Product Id :: " + productId);
+        Console.WriteLine("Deleting Products (DbContext) with Products Id :: " + productId);
         _context.Remove(productId);
         _context.SaveChanges();
     }

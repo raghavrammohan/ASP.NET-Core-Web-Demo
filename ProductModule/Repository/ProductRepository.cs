@@ -1,4 +1,5 @@
 ﻿using Common.Repository;
+using Microsoft.EntityFrameworkCore;
 using ProductModule.Models;
 
 namespace ProductModule.Repository;

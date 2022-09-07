@@ -7,5 +7,4 @@ public record ProductDTO
     public string ProductName { get; set; }
     public string Description { get; set; }
     public int Price { get; set; }
-    public string CustomsDescription { get; set; }
 }

@@ -1,16 +1,11 @@
 ﻿using AutoMapper;
-using Common.DataAccessManager;
 using Common.PDFProcessing;
 using Common.Repository;
-using Common.UOW;
 using Microsoft.EntityFrameworkCore;
-using ProductModule.DataAccessManager;
-using ProductModule.EntityProcessor;
-using ProductModule.Mappings;
-using ProductModule.Repository;
-using ProductModule.Services;
+using OrderModule.Mappings;
+using OrderModule.Services;
 
-namespace ProductModule
+namespace OrderModule
 {
     public class Startup
     {
@@ -29,14 +24,8 @@ namespace ProductModule
             services.AddSwaggerGen();
 
             // Services
-            //services.AddScoped<IProductService, ProductServiceWithRepository>();
-            //services.AddScoped<IProductService, ProductServiceDbContext>();
-            services.AddScoped<IProductService, ProductService>();
-            services.AddScoped<IDataAccessManager, ProductDataAccessManager>();
+            services.AddScoped<IOrderService, OrderService>();
 
-            services.AddScoped<ProductEntityProcessor>();
-            services.AddScoped<IPDFProcessor, PDFProcessor>();
-            
             var mapperConfig = new MapperConfiguration(mc =>
             {
                 mc.AddProfile(new MappingProfile());
@@ -45,18 +34,14 @@ namespace ProductModule
             services.AddSingleton(mapper);
 
             // DbContext
-            services.AddDbContext<DbContext, ApplicationDbContext>(o =>
+            services.AddDbContext<ApplicationDbContext>(o =>
             {
                 o.UseNpgsql(Configuration.GetConnectionString("demodb"));
                     //.LogTo(Console.WriteLine);
             });
 
             // Repositories
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
-            services.AddScoped<IProductRepository, ProductRepository>();
 
-            services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-            //Registration.ConfigureServices(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -70,7 +55,6 @@ namespace ProductModule
 
             app.UseHttpsRedirection();
             app.UseRouting();
-            //app.UseAuthorization();
             app.UseEndpoints(endpoints => endpoints.MapControllers());
         }
     }
