@@ -10,7 +10,7 @@ namespace Common.UOW
     public interface IUnitOfWork
     {
         void Start();
-        Task<bool> Complete();
+        Task<int> Complete();
         bool IsOuterMostLevel();
         IRepositoryManager GetRepositoryManager();
         void Execute(Action<IRepositoryManager> action);

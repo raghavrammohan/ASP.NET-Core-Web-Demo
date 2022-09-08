@@ -21,12 +21,12 @@ namespace Common.UOW
             _repositoryManager = repositoryManager;
         }
 
-        public async Task<bool> Complete()
+        public async Task<int> Complete()
         {
             _nestingLevel--;
             if (IsOuterMostLevel())
-                await _dbContext.SaveChangesAsync();
-            return true;
+                return await _dbContext.SaveChangesAsync();
+            return 0;
         }
 
         public bool IsOuterMostLevel()
