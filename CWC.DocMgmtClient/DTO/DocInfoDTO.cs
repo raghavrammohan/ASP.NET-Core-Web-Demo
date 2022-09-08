@@ -8,12 +8,12 @@ namespace CWC.DocMgmtClient.DTO
 {
     public class DocInfoDTO
     {
-        string documentId { get; set; }
-        string docCode { get; set; }
-        string description { get; set; }
-        string type { get; set; }
-        string pageImages { get; set; }
-        string docDefinition { get; set; }
+        public string documentId { get; set; }
+        public string docCode { get; set; }
+        public string description { get; set; }
+        public string type { get; set; }
+        public string pageImages { get; set; }
+        public string docDefinition { get; set; }
     }
 
 }

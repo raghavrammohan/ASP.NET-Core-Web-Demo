@@ -1,4 +1,9 @@
-﻿using CWC.DocMgmtClient.DTO;
+﻿using AutoMapper;
+using Common.UOW;
+using CWC.DocMgmt.Models;
+using CWC.DocMgmtClient.DTO;
+using ProductModule.Repository;
+using System.Data;
 using System.Text.Json.Nodes;
 
 namespace CWC.DocMgmt.Services
@@ -6,21 +11,42 @@ namespace CWC.DocMgmt.Services
     public class DocManagerService : IDocManagerService
     {
 
-    //private ModelMapper modelMapper;
+        private readonly IMapper _mapper;
 
-    //private DocInfoRepository docDetailsRepository;
+        private IDocInfoRepository _docInfoRepository;
 
-    private String basePath;
+        private readonly ApplicationDbContext _context;
 
-    private String docReposTempDirectory;
+        private readonly IUnitOfWork _unitOfWork;
 
+        private IConfiguration _configuration;
+
+        public DocManagerService(IMapper mapper, IUnitOfWork unitOfWork, DocInfoRepository docInfoRepository, IConfiguration configuration)
+        {
+            _mapper = mapper;
+            _unitOfWork = unitOfWork;
+            _docInfoRepository = docInfoRepository;
+            _configuration = configuration;
+         }
 
         public void addDocInfo(DocInfoDTO docInfoDTO)
+        {
+           
+            if (_context.Documents.FirstOrDefault(d=>d.docCode == docInfoDTO.docCode) != null)
+            {
+               throw new DuplicateNameException("Document with " + docInfoDTO.docCode+ " is already present");
+            }
+
+            docInfoDTO.documentId = new Guid().ToString();
+            DocInfo docDetails = _mapper.Map<DocInfo>(docInfoDTO);
+        }
+
+        public void updateDocDefinition(DocInfoDTO docInfoDTO)
         {
             throw new NotImplementedException();
         }
 
-        public void addDocInfos(List<DocInfoDTO> docInfos)
+        public List<DocInfoDTO> getDocumentList()
         {
             throw new NotImplementedException();
         }
@@ -35,11 +61,6 @@ namespace CWC.DocMgmt.Services
             throw new NotImplementedException();
         }
 
-        public List<DocInfoDTO> getDocumentList()
-        {
-            throw new NotImplementedException();
-        }
-
         public string getZipOfDocs(List<string> docName)
         {
             throw new NotImplementedException();
@@ -50,12 +71,12 @@ namespace CWC.DocMgmt.Services
             throw new NotImplementedException();
         }
 
-        public void updateDocDefinition(DocInfoDTO docInfoDTO)
+        public DocInfoDTO updateDocImages(string docCode, JsonObject pdfTemplateInfo)
         {
             throw new NotImplementedException();
         }
 
-        public DocInfoDTO updateDocImages(string docCode, JsonObject pdfTemplateInfo)
+        public void addDocInfos(List<DocInfoDTO> docInfos)
         {
             throw new NotImplementedException();
         }

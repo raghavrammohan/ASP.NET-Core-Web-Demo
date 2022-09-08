@@ -14,7 +14,7 @@ namespace CWC.DocMgmt.Engine
 {
     public class PDFTemplateProcessor
     {
-        public JsonObject processTemplate(String pdfTemplateFileName)
+        public static JsonObject processTemplate(String pdfTemplateFileName)
         {
             IDocRepository docRepos = DocRepoFactory.getDocumentRepository();
             JsonObject templateInfo = new JsonObject();
