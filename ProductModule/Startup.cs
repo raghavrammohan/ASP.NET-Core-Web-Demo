@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
-using Common.DataAccessManager;
+using Common.RepositoryManager;
 using Common.PDFProcessing;
 using Common.Repository;
 using Common.UOW;
 using Microsoft.EntityFrameworkCore;
-using ProductModule.DataAccessManager;
+using ProductModule.RepositoryManager;
 using ProductModule.EntityProcessor;
 using ProductModule.Mappings;
 using ProductModule.Repository;

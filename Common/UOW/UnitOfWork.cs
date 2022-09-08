@@ -1,4 +1,4 @@
-﻿using Common.DataAccessManager;
+﻿using Common.RepositoryManager;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

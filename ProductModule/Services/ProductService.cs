@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Common.DataAccessManager;
+using Common.RepositoryManager;
 using Common.Repository;
 using Common.UOW;
 using ProductClient.DTO;

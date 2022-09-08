@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Common.Repository;
 using Common.UOW;
 
-namespace Common.DataAccessManager
+namespace Common.RepositoryManager
 {
     public interface IRepositoryManager
     {
