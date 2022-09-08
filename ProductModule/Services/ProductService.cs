@@ -15,6 +15,7 @@ namespace ProductModule.Services
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
         private readonly ProductEntityProcessor _entityProcessor;
+        private IProductRepository _productRepository => _unitOfWork.GetRepositoryManager().GetRepository<IProductRepository, Product>();
 
         public ProductService(IMapper mapper, IUnitOfWork unitOfWork, ProductEntityProcessor entityProcessor)
         {
@@ -23,15 +24,15 @@ namespace ProductModule.Services
             _entityProcessor = entityProcessor;
         }
 
-        public ProductDTO createProduct(ProductDTO productDTO)
+        public async Task<ProductDTO> CreateProduct(ProductDTO productDTO)
         {
             Console.WriteLine("Saving Products using ProductService");
             Product product = _mapper.Map<Product>(productDTO);
 
             _unitOfWork.Start();
-            // TODO: Lose the param when trying to get the repository from the dict
-            _unitOfWork.GetDataAccessManager().GetRepository<IProductRepository>(typeof(IProductRepository)).Add(product);
-            _unitOfWork.Complete();
+            _productRepository.Add(product);
+            _entityProcessor.processEntity(product);
+            await _unitOfWork.Complete();
             /*_unitOfWork.Execute(dam =>
             {
                 dam.GetRepository<IProductRepository>(typeof(IProductRepository)).Add(product);
@@ -44,35 +45,41 @@ namespace ProductModule.Services
             return productDTO;
         }
 
-        public void deleteProduct(string productId)
+        public async Task DeleteProduct(string productId)
         {
             _unitOfWork.Start();
-            //_unitOfWork.GetDataAccessManager().GetRepository<IProductRepository>(typeof(IProductRepository)).Remove();
-            _unitOfWork.Complete();
+            Product product = new Product() { ProductId = productId };
+            _productRepository.Remove(product);
+            await _unitOfWork.Complete();
         }
 
-        public ProductDTO getProduct(string productId)
+        public async Task<ProductDTO> GetProduct(string productId)
         {
-            IProductRepository productRepository = _unitOfWork.GetDataAccessManager().GetRepository<IProductRepository>(typeof(IProductRepository));
-            Product product = productRepository.GetById(productId);
+            Product product = await _productRepository.GetById(productId);
             ProductDTO productDTO = _mapper.Map<ProductDTO>(product);
             return productDTO;
         }
 
-        public List<ProductDTO> searchProducts(JsonObject searchParams)
+        public async Task<List<ProductDTO>> SearchProducts(JsonObject searchParams)
         {
-            throw new NotImplementedException();
+            List<Product> products = await _productRepository.GetAll();
+            List<ProductDTO> results = new List<ProductDTO>();
+            for (int i = 0; i < products.Count; i++)
+            {
+                results.Add(_mapper.Map<ProductDTO>(products[i]));
+            }
+            return results;
         }
 
-        public ProductDTO updateProduct(ProductDTO productDTO)
+        public async Task<ProductDTO> UpdateProduct(ProductDTO productDTO)
         {
             Console.WriteLine("Updating Products using ProductService");
             Product product = _mapper.Map<Product>(productDTO);
 
             _unitOfWork.Start();
-            // TODO: Lose the param when trying to get the repository from the dict
-            _unitOfWork.GetDataAccessManager().GetRepository<IProductRepository>(typeof(IProductRepository)).Update(product);
-            _unitOfWork.Complete();
+            await _productRepository.Update(product, product.ProductId);
+            _entityProcessor.processEntity(product);
+            await _unitOfWork.Complete();
 
             productDTO = _mapper.Map<ProductDTO>(product);
             return productDTO;

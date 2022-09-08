@@ -12,20 +12,21 @@ namespace Common.UOW
     {
         private int _nestingLevel = 0;
         private readonly DbContext _dbContext;
-        private readonly IDataAccessManager _dataAccessManager;
+        private readonly IRepositoryManager _repositoryManager;
         // TODO: Operation Context
 
-        public UnitOfWork(DbContext context, IDataAccessManager dataAccessManager)
+        public UnitOfWork(DbContext context, IRepositoryManager repositoryManager)
         {
             _dbContext = context;
-            _dataAccessManager = dataAccessManager;
+            _repositoryManager = repositoryManager;
         }
 
-        public void Complete()
+        public async Task<bool> Complete()
         {
             _nestingLevel--;
             if (IsOuterMostLevel())
-                _dbContext.SaveChanges();
+                await _dbContext.SaveChangesAsync();
+            return true;
         }
 
         public bool IsOuterMostLevel()
@@ -38,16 +39,16 @@ namespace Common.UOW
             _nestingLevel++;
         }
 
-        public IDataAccessManager GetDataAccessManager()
+        public IRepositoryManager GetRepositoryManager()
         {
-            return _dataAccessManager;
+            return _repositoryManager;
         }
 
-        public void Execute(Action<IDataAccessManager> action)
+        public void Execute(Action<IRepositoryManager> action)
         {
             Console.WriteLine("In");
             this.Start();
-            action.Invoke(_dataAccessManager);
+            action.Invoke(_repositoryManager);
             this.Complete();
             Console.WriteLine("Out");
         }

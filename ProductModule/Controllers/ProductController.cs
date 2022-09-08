@@ -12,39 +12,39 @@ public class ProductController : ControllerBase
     private readonly IProductService _productService;
     private readonly IPDFProcessor _pdfProcessor;
 
-    public ProductController(IEnumerable<IProductService> productServices, IPDFProcessor pdfProcessor)
+    public ProductController(IProductService productService, IPDFProcessor pdfProcessor /*, IEnumerable<IProdService> prodServices */)
     {
-        //_productService = productServices.SingleOrDefault(s => s.GetType() == typeof(ProductServiceDbContext));
-        _productService = productServices.SingleOrDefault(s => s.GetType() == typeof(ProductService));
-        //_productService = productServices.SingleOrDefault(s => s.GetType() == typeof(ProductServiceUOW));
+        //_productService = prodServices.SingleOrDefault(s => s.GetType() == typeof(ProductServiceDbContext));
+        //_productService = prodServices.SingleOrDefault(s => s.GetType() == typeof(ProductServiceWithRepository));
+        _productService = productService;
         _pdfProcessor = pdfProcessor;
     }
 
-    [HttpGet("getProduct/{productId}")]
-    public IActionResult GetProduct(string productId)
+    [HttpGet("GetProduct/{productId}")]
+    public async Task<IActionResult> GetProduct(string productId)
     {
-        var response = _productService.getProduct(productId);
+        var response = await _productService.GetProduct(productId);
         return Ok(response);
     }
 
-    [HttpPost("/createProduct")]
-    public IActionResult CreateProduct(ProductDTO productDTO)
+    [HttpPost("/CreateProduct")]
+    public async Task<IActionResult> CreateProduct(ProductDTO productDTO)
     {
-        var response = _productService.createProduct(productDTO);
+        var response = await _productService.CreateProduct(productDTO);
         return Ok(response);
     }
 
-    [HttpPut("/updateProduct")]
-    public IActionResult UpdateProduct(ProductDTO productDTO)
+    [HttpPut("/UpdateProduct")]
+    public async Task<IActionResult> UpdateProduct(ProductDTO productDTO)
     {
-        var response = _productService.updateProduct(productDTO);
+        var response = await _productService.UpdateProduct(productDTO);
         return Ok(response);
     }
 
-    [HttpDelete("/deleteProduct")]
-    public IActionResult DeleteProduct(string productId)
+    [HttpDelete("/DeleteProduct")]
+    public async Task<IActionResult> DeleteProduct(string productId)
     {
-        _productService.deleteProduct(productId);
+        await _productService.DeleteProduct(productId);
         return NoContent();
     }
 

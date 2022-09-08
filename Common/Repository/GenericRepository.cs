@@ -7,7 +7,6 @@ namespace Common.Repository
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
-        // TODO: Make async 
         private readonly DbContext _context;
         public GenericRepository(DbContext context)
         {
@@ -26,13 +25,13 @@ namespace Common.Repository
         {
             return _context.Set<T>().Where(expression);
         }
-        public IEnumerable<T> GetAll()
+        public async Task<List<T>> GetAll()
         {
-            return _context.Set<T>().ToList();
+            return await _context.Set<T>().ToListAsync();
         }
-        public T GetById(string id)
+        public async Task<T> GetById(object id)
         {
-            return _context.Set<T>().Find(id);
+            return await _context.Set<T>().FindAsync(id);
         }
         public void Remove(T entity)
         {
@@ -42,11 +41,12 @@ namespace Common.Repository
         {
             _context.Set<T>().RemoveRange(entities);
         }
-        public void Update(T entity)
+        public async Task Update(T entity, object id)
         {
-            _context.Set<T>().Update(entity);
-            //TODO : Test the below statement
-            //_dbContext.Entry<T>(entity).CurrentValues.SetValues(entity);
+            //_context.Set<T>().Update(entity);
+            var original = await GetById(id);
+            if (original != null)
+                _context.Entry(original).CurrentValues.SetValues(entity);
         }
         public void UpdateRange(IEnumerable<T> entities)
         {

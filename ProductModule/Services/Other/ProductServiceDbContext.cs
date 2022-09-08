@@ -3,9 +3,9 @@ using ProductClient.DTO;
 using ProductModule.Models;
 using System.Text.Json.Nodes;
 
-namespace ProductModule.Services;
+namespace ProductModule.Services.Other;
 
-public class ProductServiceDbContext : IProductService
+public class ProductServiceDbContext : IProdService
 {
     private readonly IMapper _mapper;
     private readonly ApplicationDbContext _context;
@@ -16,14 +16,14 @@ public class ProductServiceDbContext : IProductService
         _context = context;
     }
 
-    public ProductDTO getProduct(string productId)
+    public ProductDTO GetProduct(string productId)
     {
         Product product = _context.Products.FirstOrDefault(p => p.ProductId == productId);
         ProductDTO productDTO = _mapper.Map<ProductDTO>(product);
         return productDTO;
     }
 
-    public ProductDTO createProduct(ProductDTO productDTO)
+    public ProductDTO CreateProduct(ProductDTO productDTO)
     {
         Product product = _mapper.Map<Product>(productDTO);
         Console.WriteLine("Saving Products - DbContext");
@@ -33,7 +33,7 @@ public class ProductServiceDbContext : IProductService
         return productDTO;
     }
 
-    public ProductDTO updateProduct(ProductDTO productDTO)
+    public ProductDTO UpdateProduct(ProductDTO productDTO)
     {
         Product product = _mapper.Map<Product>(productDTO);
         Console.WriteLine("Updating Products - DbContext");
@@ -43,21 +43,17 @@ public class ProductServiceDbContext : IProductService
         return productDTO;
     }
 
-    public void deleteProduct(string productId)
+    public void DeleteProduct(string productId)
     {
         Console.WriteLine("Deleting Products (DbContext) with Products Id :: " + productId);
         _context.Remove(productId);
         _context.SaveChanges();
     }
 
-    public List<ProductDTO> searchProducts(JsonObject searchParams)
+    public List<ProductDTO> SearchProducts(JsonObject searchParams)
     {
         Console.WriteLine(searchParams);
         throw new NotImplementedException();
     }
 
-    ProductDTO IProductService.updateProduct(ProductDTO productDTO)
-    {
-        throw new NotImplementedException();
-    }
 }

@@ -5,13 +5,9 @@ namespace ProductModule.Services;
 
 public interface IProductService
 {
-    ProductDTO getProduct(string productId);
-
-    List<ProductDTO> searchProducts(JsonObject searchParams);
-
-    ProductDTO createProduct(ProductDTO productDTO);
-
-    ProductDTO updateProduct(ProductDTO productDTO);
-
-    void deleteProduct(string productId);
+    Task<ProductDTO> GetProduct(string productId);
+    Task<List<ProductDTO>> SearchProducts(JsonObject searchParams);
+    Task<ProductDTO> CreateProduct(ProductDTO productDTO);
+    Task<ProductDTO> UpdateProduct(ProductDTO productDTO);
+    Task DeleteProduct(string productId);
 }

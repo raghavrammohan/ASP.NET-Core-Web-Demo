@@ -29,10 +29,10 @@ namespace ProductModule
             services.AddSwaggerGen();
 
             // Services
-            //services.AddScoped<IProductService, ProductServiceWithRepository>();
-            //services.AddScoped<IProductService, ProductServiceDbContext>();
+            //services.AddScoped<IProdService, ProductServiceWithRepository>();
+            //services.AddScoped<IProdService, ProductServiceDbContext>();
             services.AddScoped<IProductService, ProductService>();
-            services.AddScoped<IDataAccessManager, ProductDataAccessManager>();
+            services.AddScoped<IRepositoryManager, ProductRepositoryManager>();
 
             services.AddScoped<ProductEntityProcessor>();
             services.AddScoped<IPDFProcessor, PDFProcessor>();
@@ -48,6 +48,7 @@ namespace ProductModule
             services.AddDbContext<DbContext, ApplicationDbContext>(o =>
             {
                 o.UseNpgsql(Configuration.GetConnectionString("demodb"));
+                    //.UseSnakeCaseNamingConvention();
                     //.LogTo(Console.WriteLine);
             });
 
