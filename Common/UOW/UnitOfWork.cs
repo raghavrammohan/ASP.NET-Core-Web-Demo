@@ -27,7 +27,7 @@ namespace Common.UOW
             _nestingLevel--;
             if (IsOuterMostLevel())
             {
-                OperationContext.ClearContext();
+                _operationContext.ClearContext();
                 return await _dbContext.SaveChangesAsync();
             }
             return 0;
