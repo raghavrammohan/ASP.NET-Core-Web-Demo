@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Common.Repository;
-using Common.UOW;
+﻿using Common.Repository;
 
 namespace Common.RepositoryManager
 {
@@ -15,7 +9,7 @@ namespace Common.RepositoryManager
         public T GetRepository<T, E>() where T : IGenericRepository<E> where E : class
         {
             _reposDictionary.TryGetValue(typeof(T), out object repository);
-            return (T) repository;
+            return (T)repository;
         }
 
         public void RegisterRepository<T, E>(IGenericRepository<E> repository) where T : IGenericRepository<E> where E : class

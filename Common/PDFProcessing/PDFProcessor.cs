@@ -1,13 +1,12 @@
-﻿using PdfSharpCore.Drawing;
+﻿using Docnet.Core;
+using Docnet.Core.Converters;
+using Docnet.Core.Models;
+using PdfSharpCore.Drawing;
 using PdfSharpCore.Pdf;
 using PdfSharpCore.Pdf.IO;
-using System.Drawing.Imaging;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
-using Docnet.Core;
-using Docnet.Core.Models;
-using Docnet.Core.Converters;
-using System.IO;
 
 namespace Common.PDFProcessing
 {
@@ -95,7 +94,8 @@ namespace Common.PDFProcessing
                 //paths
                 string pathPdf = "C:\\MicroservicesRaghav\\Temp\\" + String.Format("{0} - Page {1}_tempfile.pdf", name, idx + 1);
                 string finalPathWithFileName = "C:\\MicroservicesRaghav\\Temp\\" + String.Format("{0} - Page {1}_tempfile.png", name, idx + 1);
-                try {
+                try
+                {
                     //using docnet
                     using (var docReader = DocLib.Instance.GetDocReader(pathPdf, new PageDimensions(4)))
                     {
@@ -103,7 +103,7 @@ namespace Common.PDFProcessing
                         using (var pageReader = docReader.GetPageReader(0))
                         {
 
-                            var rawBytes = pageReader.GetImage(new NaiveTransparencyRemover(255,255,255));
+                            var rawBytes = pageReader.GetImage(new NaiveTransparencyRemover(255, 255, 255));
                             var width = pageReader.GetPageWidth();
                             var height = pageReader.GetPageHeight();
                             var characters = pageReader.GetCharacters();
@@ -126,9 +126,10 @@ namespace Common.PDFProcessing
 
 
                 }
-                catch (Exception e) { 
+                catch (Exception e)
+                {
                 }
-                }
+            }
 
         }
 

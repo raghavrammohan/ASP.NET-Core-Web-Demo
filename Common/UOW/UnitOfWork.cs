@@ -2,7 +2,6 @@
 using Common.OperationContext;
 using Common.RepositoryManager;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace Common.UOW
 {
@@ -11,15 +10,15 @@ namespace Common.UOW
         private int _nestingLevel = 0;
         private readonly DbContext _dbContext;
         private readonly IRepositoryManager _repositoryManager;
-        private IOperationContext _operationContext;
-        private IEntityChangeTracker _entityChangeTracker;
+        private readonly IOperationContext _operationContext;
+        private readonly IEntityChangeTracker _entityChangeTracker;
 
-        public UnitOfWork(DbContext context, IRepositoryManager repositoryManager)
+        public UnitOfWork(DbContext context, IRepositoryManager repositoryManager, IOperationContext operationContext, IEntityChangeTracker entityChangeTracker)
         {
             _dbContext = context;
             _repositoryManager = repositoryManager;
-            _operationContext = new OperationContext.OperationContext();
-            _entityChangeTracker = new EntityChangeTracker.EntityChangeTracker(context);
+            _operationContext = operationContext;
+            _entityChangeTracker = entityChangeTracker;
         }
 
         public async Task<int> Complete()

@@ -9,6 +9,8 @@ using ProductModule.EntityProcessor;
 using ProductModule.Mappings;
 using ProductModule.Repository;
 using ProductModule.Services;
+using Common.OperationContext;
+using Common.EntityChangeTracker;
 
 namespace ProductModule
 {
@@ -33,6 +35,8 @@ namespace ProductModule
             //services.AddScoped<IProdService, ProductServiceDbContext>();
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IRepositoryManager, ProductRepositoryManager>();
+            services.AddScoped<IOperationContext, OperationContext>();
+            services.AddScoped<IEntityChangeTracker, EntityChangeTracker>();
 
             services.AddScoped<ProductEntityProcessor>();
             services.AddScoped<IPDFProcessor, PDFProcessor>();
@@ -56,7 +60,7 @@ namespace ProductModule
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IProductRepository, ProductRepository>();
 
-            services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            //services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             //Registration.ConfigureServices(services);
         }
 
