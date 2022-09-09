@@ -1,4 +1,7 @@
-﻿using Common.RepositoryManager;
+﻿using Common.EntityChangeTracker;
+using Common.OperationContext;
+using Common.RepositoryManager;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +15,10 @@ namespace Common.UOW
         void Start();
         Task<int> Complete();
         bool IsOuterMostLevel();
-        IRepositoryManager GetRepositoryManager();
+        IRepositoryManager RepositoryManager { get; }
+        IOperationContext OperationContext { get; }
+        IEntityChangeTracker EntityChangeTracker { get; }
         void Execute(Action<IRepositoryManager> action);
+        //ChangeTracker GetChangeTracker();
     }
 }

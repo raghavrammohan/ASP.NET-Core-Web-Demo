@@ -1,10 +1,8 @@
-﻿using Common.RepositoryManager;
+﻿using Common.EntityChangeTracker;
+using Common.OperationContext;
+using Common.RepositoryManager;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace Common.UOW
 {
@@ -13,36 +11,37 @@ namespace Common.UOW
         private int _nestingLevel = 0;
         private readonly DbContext _dbContext;
         private readonly IRepositoryManager _repositoryManager;
-        // TODO: Operation Context
+        private IOperationContext _operationContext;
+        private IEntityChangeTracker _entityChangeTracker;
 
         public UnitOfWork(DbContext context, IRepositoryManager repositoryManager)
         {
             _dbContext = context;
             _repositoryManager = repositoryManager;
+            _operationContext = new OperationContext.OperationContext();
+            _entityChangeTracker = new EntityChangeTracker.EntityChangeTracker(context);
         }
 
         public async Task<int> Complete()
         {
             _nestingLevel--;
             if (IsOuterMostLevel())
+            {
+                OperationContext.ClearContext();
                 return await _dbContext.SaveChangesAsync();
+            }
             return 0;
         }
 
-        public bool IsOuterMostLevel()
-        {
-            return _nestingLevel == 0;
-        }
+        public bool IsOuterMostLevel() => _nestingLevel == 0;
 
-        public void Start()
-        {
-            _nestingLevel++;
-        }
+        public void Start() => _nestingLevel++;
 
-        public IRepositoryManager GetRepositoryManager()
-        {
-            return _repositoryManager;
-        }
+        public IRepositoryManager RepositoryManager => _repositoryManager;
+
+        public IOperationContext OperationContext => _operationContext;
+
+        public IEntityChangeTracker EntityChangeTracker => _entityChangeTracker;
 
         public void Execute(Action<IRepositoryManager> action)
         {
@@ -52,5 +51,7 @@ namespace Common.UOW
             this.Complete();
             Console.WriteLine("Out");
         }
+
+        //public ChangeTracker GetChangeTracker() => _dbContext.ChangeTracker;
     }
 }

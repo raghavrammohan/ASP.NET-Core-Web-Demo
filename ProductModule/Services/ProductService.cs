@@ -15,7 +15,7 @@ namespace ProductModule.Services
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
         private readonly ProductEntityProcessor _entityProcessor;
-        private IProductRepository _productRepository => _unitOfWork.GetRepositoryManager().GetRepository<IProductRepository, Product>();
+        private IProductRepository _productRepository => _unitOfWork.RepositoryManager.GetRepository<IProductRepository, Product>();
 
         public ProductService(IMapper mapper, IUnitOfWork unitOfWork, ProductEntityProcessor entityProcessor)
         {

@@ -15,15 +15,18 @@ namespace ProductModule.EntityProcessor
 
         public void processEntity(Product entity)
         {
-            /*
-            ChangeTracker changeTracker = _unitOfWork.ChangeTracker();
+            /*ChangeTracker changeTracker = _unitOfWork.GetChangeTracker();
             var entries = changeTracker.Entries<Product>().Where(e => e.State == EntityState.Modified);
             foreach (var entry in entries)
             {
-                var modifiedProps = entry.Properties.Where(prop => prop.IsModified);
-                Console.WriteLine("---------------{0}", modifiedProps.Select(p => p.Metadata));
-            }
-            */
+                if (entry.Property("ProductName").IsModified)
+                    Console.WriteLine("------------------ Name is Modified -----------------");
+            }*/
+
+            var modifiedEntries = _unitOfWork.EntityChangeTracker.GetModifiedEntries<Product>("ProductName");
+            if (modifiedEntries.Count > 0)
+                Console.WriteLine("Product Name Changed");
+            Console.WriteLine(modifiedEntries.ToString());
         }
     }
 }
