@@ -1,6 +1,4 @@
 ﻿using Common.UOW;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 using ProductModule.Models;
 
 namespace ProductModule.EntityProcessor

@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 
-namespace Common.EntityChangeTracker
+namespace Common.UOW.EntityChangeTracker
 {
     public class EntityChangeTracker : IEntityChangeTracker
     {
@@ -14,7 +14,7 @@ namespace Common.EntityChangeTracker
         public List<EntityEntry<T>> GetModifiedEntries<T>(string propertyName = null) where T : class
         {
             return _dbContext.ChangeTracker.Entries<T>().Where(e => e.State == EntityState.Modified
-                        && ((propertyName != null && e.Property(propertyName).IsModified) || propertyName == null)).ToList();
+                        && (propertyName != null && e.Property(propertyName).IsModified || propertyName == null)).ToList();
 
         }
     }

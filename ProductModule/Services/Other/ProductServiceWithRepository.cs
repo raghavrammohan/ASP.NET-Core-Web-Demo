@@ -1,7 +1,4 @@
 ﻿using AutoMapper;
-using Common.UOW;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
 using ProductClient.DTO;
 using ProductModule.Models;
 using ProductModule.Repository;

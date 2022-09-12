@@ -1,16 +1,15 @@
 ﻿using AutoMapper;
-using Common.RepositoryManager;
 using Common.PDFProcessing;
-using Common.Repository;
 using Common.UOW;
+using Common.UOW.EntityChangeTracker;
+using Common.UOW.OperationContext;
+using Common.UOW.RepositoryManager;
 using Microsoft.EntityFrameworkCore;
-using ProductModule.RepositoryManager;
 using ProductModule.EntityProcessor;
 using ProductModule.Mappings;
 using ProductModule.Repository;
+using ProductModule.RepositoryManager;
 using ProductModule.Services;
-using Common.OperationContext;
-using Common.EntityChangeTracker;
 
 namespace ProductModule
 {
@@ -40,7 +39,7 @@ namespace ProductModule
 
             services.AddScoped<ProductEntityProcessor>();
             services.AddScoped<IPDFProcessor, PDFProcessor>();
-            
+
             var mapperConfig = new MapperConfiguration(mc =>
             {
                 mc.AddProfile(new MappingProfile());
@@ -52,8 +51,8 @@ namespace ProductModule
             services.AddDbContext<DbContext, ApplicationDbContext>(o =>
             {
                 o.UseNpgsql(Configuration.GetConnectionString("demodb"));
-                    //.UseSnakeCaseNamingConvention();
-                    //.LogTo(Console.WriteLine);
+                //.UseSnakeCaseNamingConvention();
+                //.LogTo(Console.WriteLine);
             });
 
             // Repositories
@@ -71,6 +70,11 @@ namespace ProductModule
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
+                app.UseExceptionHandler("/error-dev");
+            }
+            else
+            {
+                app.UseExceptionHandler("/error");
             }
 
             app.UseHttpsRedirection();

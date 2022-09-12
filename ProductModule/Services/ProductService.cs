@@ -1,6 +1,4 @@
 ﻿using AutoMapper;
-using Common.RepositoryManager;
-using Common.Repository;
 using Common.UOW;
 using ProductClient.DTO;
 using ProductModule.EntityProcessor;

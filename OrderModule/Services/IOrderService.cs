@@ -1,5 +1,4 @@
 ﻿using OrderClient.DTO;
-using OrderModule.Models;
 
 namespace OrderModule.Services
 {

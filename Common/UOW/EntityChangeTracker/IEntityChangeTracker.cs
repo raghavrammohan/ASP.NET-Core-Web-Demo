@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.ChangeTracking;
 
-namespace Common.EntityChangeTracker
+namespace Common.UOW.EntityChangeTracker
 {
     public interface IEntityChangeTracker
     {

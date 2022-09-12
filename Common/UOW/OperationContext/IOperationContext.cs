@@ -1,4 +1,4 @@
-﻿namespace Common.OperationContext
+﻿namespace Common.UOW.OperationContext
 {
     public interface IOperationContext
     {

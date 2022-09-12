@@ -1,6 +1,6 @@
 ﻿using Common.Repository;
 
-namespace Common.RepositoryManager
+namespace Common.UOW.RepositoryManager
 {
     public class RepositoryManager : IRepositoryManager
     {

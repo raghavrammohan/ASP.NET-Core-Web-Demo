@@ -1,6 +1,6 @@
-﻿using Common.EntityChangeTracker;
-using Common.OperationContext;
-using Common.RepositoryManager;
+﻿using Common.UOW.EntityChangeTracker;
+using Common.UOW.OperationContext;
+using Common.UOW.RepositoryManager;
 
 namespace Common.UOW
 {

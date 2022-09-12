@@ -1,6 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Common.Models;
+using Microsoft.EntityFrameworkCore;
 using OrderModule.Models;
-using Common.Models;
 
 namespace OrderModule;
 

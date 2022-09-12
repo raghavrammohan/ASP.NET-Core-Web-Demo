@@ -1,6 +1,4 @@
 ﻿using AutoMapper;
-using Common.PDFProcessing;
-using Common.Repository;
 using Microsoft.EntityFrameworkCore;
 using OrderModule.Mappings;
 using OrderModule.Services;
@@ -37,7 +35,7 @@ namespace OrderModule
             services.AddDbContext<ApplicationDbContext>(o =>
             {
                 o.UseNpgsql(Configuration.GetConnectionString("demodb"));
-                    //.LogTo(Console.WriteLine);
+                //.LogTo(Console.WriteLine);
             });
 
             // Repositories
